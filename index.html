@@ -18,9 +18,11 @@
       justify-content: center;
       height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
     .container {
       padding: 2rem;
+      animation: fadeIn 2s ease-out;
     }
     h1 {
       font-size: 3rem;
@@ -35,13 +37,103 @@
       height: 80px;
       margin-bottom: 1rem;
     }
+    .countdown {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: inline-block;
+      margin-top: 30px;
+      letter-spacing: 1px;
+      font-family: 'Poppins', sans-serif;
+      border: 1px solid rgba(255,255,255,0.2);
+    
+      margin-top: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .email-box {
+      margin-top: 30px;
+    }
+    input[type="email"] {
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      width: 250px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #00c3ff;
+      color: white;
+      font-weight: bold;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .thank-you {
+      display: none;
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #a2ffb5;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="https://cdn-icons-png.flaticon.com/512/833/833314.png" alt="Logo" class="logo" />
+    <img src="https://cdn-icons-png.flaticon.com/512/1179/1179069.png" alt="Logo" class="logo" />
     <h1>Jomflix</h1>
     <p>Emosi. Cerita. Tayang.<br>Platform ini akan dilancarkan tidak lama lagi.</p>
+
+    <div class="countdown" id="countdown">
+      Memuat kiraan detik...
+    </div>
+
+    <div class="email-box">
+      <p>Daftar emel untuk diberitahu:</p>
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfymVSTZVnDa_Am7y3aNsL0uwBoOd1m6pcfUfdRwukXcZZxOw/formResponse" method="POST" target="hidden_iframe" onsubmit="submitForm();">
+        <input type="email" name="entry.969333304" placeholder="Alamat emel anda" required />
+        <button type="submit">Hantar</button>
+      </form>
+      <iframe name="hidden_iframe" style="display:none;"></iframe>
+      <div class="thank-you" id="thank-you-message">Terima kasih! Kami akan hubungi anda.</div>
+    </div>
   </div>
+
+  <script>
+    const launchDate = new Date("2025-07-01T00:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      if (distance < 0) {
+        countdownEl.innerText = "Kami telah dilancarkan!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerText = `${days}h ${hours}j ${minutes}m ${seconds}s lagi`;
+    };
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function submitForm() {
+      setTimeout(() => {
+        document.getElementById("thank-you-message").style.display = "block";
+        document.querySelector("form").reset();
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
