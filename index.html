@@ -23,6 +23,7 @@
     .container {
       padding: 2rem;
       animation: fadeIn 2s ease-out;
+      max-width: 600px;
     }
     h1 {
       font-size: 3rem;
@@ -31,11 +32,12 @@
     p {
       font-size: 1.2rem;
       color: #d3d3d3;
+      line-height: 1.6;
     }
     .logo {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 1rem;
+      width: 300px;
+      height: auto;
+      margin-bottom: 1.5rem;
     }
     .countdown {
       background-color: rgba(255, 255, 255, 0.1);
@@ -43,7 +45,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       display: inline-block;
-      margin-top: 30px;
+      margin: 2rem 0 1rem;
       letter-spacing: 1px;
       font-family: 'Poppins', sans-serif;
       border: 1px solid rgba(255,255,255,0.2);
@@ -83,21 +85,22 @@
 </head>
 <body>
   <div class="container">
-    <img src="https://cdn-icons-png.flaticon.com/512/1179/1179069.png" alt="Logo" class="logo" />
-    <h1>Jomflix</h1>
-    <p>Emosi. Cerita. Tayang.<br>Platform ini akan dilancarkan tidak lama lagi.</p>
+    <img src="jomflixlogo.png" alt="Jomflix Logo" class="logo" />
+    <p><strong>Create With AI. Stream With Us.</strong><br>
+    Whether you use AI to animate, direct, or write — Jomflix gives your film a global stage.<br>
+    <strong>Upload once. Monetize forever.</strong></p>
 
     <div class="countdown" id="countdown">
-      Memuat kiraan detik...
+      27h 6j 2m 36s
     </div>
 
     <div class="email-box">
-      <p>Daftar emel untuk diberitahu:</p>
+<p><em>Sign up now to become one of Jomflix’s first AI movie creators and unlock early access perks, exclusive promos, and front-page exposure.</em></p>
       <form id="signup-form">
-        <input type="email" id="email-input" placeholder="Alamat emel anda" required />
-        <button type="submit">Hantar</button>
+        <input type="email" id="email-input" placeholder="Your email address" required />
+        <button type="submit">Submit</button>
       </form>
-      <div class="thank-you" id="thank-you-message">Terima kasih! Kami akan hubungi anda.</div>
+      <div class="thank-you" id="thank-you-message">Thank you! We’ll get in touch with you.</div>
     </div>
   </div>
 
@@ -110,7 +113,7 @@
       const distance = launchDate - now;
 
       if (distance < 0) {
-        countdownEl.innerText = "Kami telah dilancarkan!";
+        countdownEl.innerText = "We’ve launched!";
         return;
       }
 
@@ -119,13 +122,12 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      countdownEl.innerText = `${days}h ${hours}j ${minutes}m ${seconds}s lagi`;
+      countdownEl.innerText = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
     };
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // SheetDB submission via AJAX
     document.getElementById("signup-form").addEventListener("submit", function(e) {
       e.preventDefault();
       const email = document.getElementById("email-input").value;
