@@ -11,7 +11,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-color: #0f2027;
       font-family: 'Poppins', sans-serif;
       color: #ffffff;
     }
@@ -69,7 +69,7 @@
       max-width: 300px;
       border: none;
       border-radius: 4px;
-      width: 250px;
+      width: 100%;
     }
     button {
       padding: 10px 20px;
@@ -80,6 +80,7 @@
       color: white;
       font-weight: bold;
       cursor: pointer;
+      width: 100%;
     }
     .thank-you {
       display: none;
@@ -104,12 +105,6 @@
       }
       .logo {
         width: 180px;
-      }
-      input[type="email"] {
-        width: 100%;
-      }
-      button {
-        width: 100%;
       }
     }
   </style>
@@ -163,19 +158,18 @@
       e.preventDefault();
       const email = document.getElementById("email-input").value;
 
-      fetch("https://sheetdb.io/api/v1/bxpxxjvpr3j1v", {
+      fetch("https://script.google.com/macros/s/AKfycbz9EG-zJ8940h3L3C3mJj-kx3Cw7cXlp8Vh0qWI_YPVe4_iD_9_853cjGOnXsKMLn8-/exec", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: JSON.stringify({ data: [{ email: email }] })
+        body: new URLSearchParams({ email: email })
       })
-      .then(res => res.json())
       .then(() => {
         document.getElementById("thank-you-message").style.display = "block";
         document.getElementById("signup-form").reset();
       })
-      .catch(err => console.error("SheetDB Error:", err));
+      .catch(err => console.error("AppScript Error:", err));
     });
   </script>
 </body>
